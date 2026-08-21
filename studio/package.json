@@ -1,0 +1,17 @@
+{
+  "name": "portfolio-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/code-input": "^7.3.7",
+    "@sanity/vision": "^6.10.1",
+    "sanity": "^6.10.1",
+    "styled-components": "^6.5.3"
+  }
+}
