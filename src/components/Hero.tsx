@@ -139,8 +139,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
 
       <div className="relative max-w-5xl mx-auto w-full z-10 flex flex-col gap-10 sm:gap-14 my-auto mt-2 sm:mt-6 md:mt-8">
 
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 pt-2 sm:pt-4 text-left">
-          <div className="space-y-4 sm:space-y-5 max-w-3xl">
+        <div className="flex flex-col lg:flex-row lg:items-stretch justify-between gap-6 sm:gap-8 pt-2 sm:pt-4 text-left">
+          <div className="space-y-4 sm:space-y-5 max-w-3xl flex flex-col justify-between">
             <div className="inline-flex">
               <div className="inline-flex items-center px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-mono-tech tracking-wider backdrop-blur-md shadow-sm border dark:border-white/[0.12] border-[#DCDEDD] dark:bg-[#140e0d]/75 bg-white/95">
                 <span className="dark:text-white text-[#1c1817] text-sm sm:text-base md:text-[17px] font-bold tracking-wider uppercase select-none">
@@ -192,14 +192,27 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
             </div>
           </div>
 
-          <div id="hero-actions" className="flex items-end justify-start lg:justify-end shrink-0 pb-1 lg:pb-2">
+          <div id="hero-actions" className="flex flex-col items-center justify-between gap-4 shrink-0 pb-1 lg:pb-0">
+            <div className="relative group">
+              <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-44 md:h-44 lg:w-[172px] lg:h-[172px] rounded-full p-[3px] bg-gradient-to-tr from-[#74483F] via-[#c68477] to-[#e4b5a8] shadow-[0_0_35px_rgba(116,72,63,0.38)] transition-all duration-300 group-hover:scale-[1.03] group-hover:shadow-[0_0_45px_rgba(198,132,119,0.55)]">
+                <div className="w-full h-full rounded-full overflow-hidden dark:bg-[#140e0d] bg-white">
+                  <img
+                    src="/profile.jpg"
+                    alt="Sahil Harsh"
+                    className="w-full h-full object-cover rounded-full select-none"
+                    loading="eager"
+                  />
+                </div>
+              </div>
+            </div>
+
             <button
               id="hero-open-console-btn"
               onClick={() => {
                 soundFx.playClick();
                 onOpenConsole();
               }}
-              className="huly-btn flex items-center gap-2 px-4.5 sm:px-5 py-2 sm:py-2.5 text-xs font-semibold font-mono-tech tracking-wider cursor-pointer shadow-lg active:scale-95"
+              className="huly-btn flex items-center justify-center gap-2 px-4.5 sm:px-5 py-2 sm:py-2.5 text-xs font-semibold font-mono-tech tracking-wider cursor-pointer shadow-lg active:scale-95"
               aria-label="Open Interactive Terminal Agent"
             >
               <span className="font-bold">&gt;_</span>

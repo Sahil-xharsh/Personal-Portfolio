@@ -42,38 +42,18 @@ export const AboutSection: React.FC = () => {
           </div>
         </div>
 
-        <div className="mb-12">
-          <BorderGlow
-            borderRadius={10}
-            borderWidth={2}
-            edgeSensitivity={160}
-            coneSpread={4}
-            animated={true}
-            backgroundColor={isDark ? '#120e0d' : '#ffffff'}
-            colors={
-              isDark
-                ? ['#a56c5fff', '#75463cff', '#693d34ff', '#683c34ff', '#4d2c25ff']
-                : ['#875045ff', '#7d463bff', '#6f3d34ff', '#5b332bff', '#442621ff']
-            }
-            glowFilter={
-              isDark
-                ? 'drop-shadow(0 0 3.5px rgba(198, 132, 119, 0.95)) drop-shadow(0 0 8px rgba(116, 72, 63, 0.85))'
-                : 'drop-shadow(0 0 3.5px rgba(171, 110, 98, 0.95)) drop-shadow(0 0 7px rgba(116, 72, 63, 0.7))'
-            }
-            className="border dark:border-white/[0.08] border-[#DCDEDD] backdrop-blur-md"
-          >
-            <div className="p-6 sm:p-8 space-y-4 dark:text-[#DCDEDD]/90 text-[#1c1817] font-light text-base sm:text-lg leading-relaxed text-left">
-              <p>
-                I am <span className="dark:text-white text-[#1c1817] font-medium">Sahil Harsh</span>, an AI/ML Engineer working with multimodal AI through model fine-tuning, Agents, inference and evaluation. My focus is on combining ML research with practical engineering, deployment and MLOps.
-              </p>
-              <p>
-                Unlike conventional paths into machine learning, my foundation started behind the editing console and component trees. Logging hours &amp; hours in video editing, motion design and frontend development instilled an obsessive discipline for temporal pacing, friction reduction and narrative precision.
-              </p>
-              <p className="dark:text-[#DCDEDD]/70 text-[#4B4643] text-sm sm:text-base">
-                When I fine-tune a model, construct an agent workflow or deploy an inference pipeline today, I do not just evaluate validation loss: I optimize for state predictability, latency, token economics and model behavior in production.
-              </p>
-            </div>
-          </BorderGlow>
+        <div className="mb-12 rounded-[10px] dark:bg-[#120e0d] bg-white border dark:border-white/[0.08] border-[#DCDEDD] shadow-sm backdrop-blur-md overflow-hidden">
+          <div className="p-6 sm:p-8 space-y-4 dark:text-[#DCDEDD]/90 text-[#1c1817] font-light text-base sm:text-lg leading-relaxed text-left">
+            <p>
+              I am <span className="dark:text-white text-[#1c1817] font-medium">Sahil Harsh</span>, an AI/ML Engineer working with multimodal AI through model fine-tuning, Agents, inference and evaluation. My focus is on combining ML research with practical engineering, deployment and MLOps.
+            </p>
+            <p>
+              Unlike conventional paths into machine learning, my foundation started behind the editing console and component trees. Logging hours &amp; hours in video editing, motion design and frontend development instilled an obsessive discipline for temporal pacing, friction reduction and narrative precision.
+            </p>
+            <p className="dark:text-[#DCDEDD]/70 text-[#4B4643] text-sm sm:text-base">
+              When I fine-tune a model, construct an agent workflow or deploy an inference pipeline today, I do not just evaluate validation loss: I optimize for state predictability, latency, token economics and model behavior in production.
+            </p>
+          </div>
         </div>
 
           <div className="space-y-6 mb-16">

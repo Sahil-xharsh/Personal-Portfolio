@@ -112,10 +112,10 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
     >
       <div
         id="transmission-modal-dialog"
-        className={`relative w-full flex flex-col dark:bg-[#120e0d] bg-white border dark:border-white/[0.12] border-[#DCDEDD] shadow-2xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.95)] overflow-hidden text-left transition-all duration-200 ${
+        className={`relative w-full flex flex-col dark:bg-[#120e0d] bg-white border dark:border-white/[0.12] border-[#DCDEDD] shadow-2xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.95)] overflow-hidden text-left transition-all duration-200 rounded-none ${
           isFullscreen
-            ? 'h-full w-full max-w-none max-h-none rounded-none sm:rounded-[10px]'
-            : 'max-w-3xl h-[86vh] max-h-[780px] rounded-[10px]'
+            ? 'h-full w-full max-w-none max-h-none'
+            : 'max-w-3xl h-[86vh] max-h-[780px]'
         }`}
         onClick={(event) => event.stopPropagation()}
       >
@@ -139,7 +139,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                   soundFx.playClick();
                   setIsFullscreen(!isFullscreen);
                 }}
-                className="p-2 rounded-lg dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
+                className="p-2 rounded-none dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
                 title={isFullscreen ? 'Exit Full Screen (ESC)' : 'Open Full Screen'}
                 aria-label={isFullscreen ? 'Exit Full Screen' : 'Open Full Screen'}
               >
@@ -156,7 +156,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                   soundFx.playClick();
                   onClose();
                 }}
-                className="p-2 rounded-lg dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
+                className="p-2 rounded-none dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
                 title="Close (ESC)"
                 aria-label="Close modal"
               >
@@ -171,7 +171,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setActiveTab('overview');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'overview'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -186,7 +186,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setActiveTab('architecture');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'architecture'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -201,7 +201,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setActiveTab('spec');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'spec'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -216,7 +216,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setActiveTab('stack');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'stack'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -234,7 +234,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
         >
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-fade-in">
-              <div className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD] p-4 sm:p-5 rounded-lg space-y-2">
+              <div className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD] p-4 sm:p-5 rounded-[10px] space-y-2">
                 <span className="font-mono-tech text-[10px] uppercase tracking-wider dark:text-[#c68477] text-[#74483F] font-semibold block">
                   PROJECT SUMMARY
                 </span>
@@ -254,7 +254,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                     </span>
                   </div>
                   <div
-                    className={`rounded-lg overflow-hidden border dark:border-white/[0.1] border-[#DCDEDD] bg-[#0c0a09] shadow-lg transition-all duration-200 w-fit mx-auto max-w-full ${
+                    className={`rounded-none overflow-hidden border dark:border-white/[0.1] border-[#DCDEDD] bg-[#0c0a09] shadow-lg transition-all duration-200 w-fit mx-auto max-w-full ${
                       isFullscreen ? 'max-w-4xl' : 'max-w-2xl'
                     }`}
                   >
@@ -269,7 +269,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                       <img
                         src={transmission.previewImage}
                         alt={`${transmission.title} Interface`}
-                        className={`w-auto h-auto max-w-full object-contain select-none rounded-md transition-transform duration-300 group-hover/modalimg:scale-[1.01] ${
+                        className={`w-auto h-auto max-w-full object-contain select-none rounded-none transition-transform duration-300 group-hover/modalimg:scale-[1.01] ${
                           isFullscreen ? 'max-h-[75vh]' : 'max-h-[520px]'
                         }`}
                       />
@@ -279,7 +279,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
               )}
 
               {transmission.originStory && (
-                <div className="dark:bg-[#150f0e] bg-white border dark:border-[#74483F]/35 border-[#74483F]/25 p-4 sm:p-5 rounded-lg space-y-2">
+                <div className="dark:bg-[#150f0e] bg-white border dark:border-[#74483F]/35 border-[#74483F]/25 p-4 sm:p-5 rounded-[10px] space-y-2">
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-3.5 h-3.5 dark:text-[#c68477] text-[#74483F]" />
                     <span className="font-mono-tech text-[10px] uppercase tracking-wider dark:text-[#c68477] text-[#74483F] font-semibold block">
@@ -300,7 +300,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                   {transmission.metrics.map((metric, metricIndex) => (
                     <div
                       key={metricIndex}
-                      className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.08] border-[#DCDEDD] p-3.5 rounded-lg space-y-1"
+                      className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.08] border-[#DCDEDD] p-3.5 rounded-none space-y-1"
                     >
                       <div className="font-mono-tech text-[10px] dark:text-[#DCDEDD]/60 text-[#4B4643]/80 uppercase tracking-wider font-semibold">
                         {metric.label}
@@ -324,7 +324,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                   {transmission.keyInnovations.map((innovation, innovationIndex) => (
                     <div
                       key={innovationIndex}
-                      className="flex items-start gap-2.5 p-3 rounded-lg dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD]"
+                      className="flex items-start gap-2.5 p-3 rounded-none dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD]"
                     >
                       <CheckCircle2 className="w-4 h-4 dark:text-[#c68477] text-[#74483F] shrink-0 mt-0.5" />
                       <span className="text-xs sm:text-sm dark:text-[#DCDEDD] text-[#1c1817] font-light leading-snug">
@@ -339,7 +339,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
 
           {activeTab === 'architecture' && (
             <div className="space-y-6 animate-fade-in">
-              <div className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD] p-4 sm:p-5 rounded-lg space-y-2">
+              <div className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD] p-4 sm:p-5 rounded-[10px] space-y-2">
                 <span className="font-mono-tech text-[10px] uppercase tracking-wider dark:text-[#c68477] text-[#74483F] font-semibold block">
                   ARCHITECTURE &amp; MULTI-AGENT WORKFLOW
                 </span>
@@ -363,10 +363,10 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                     {transmission.buildPhases.map((phase) => (
                       <div
                         key={phase.phaseNumber}
-                        className="p-3.5 sm:p-4 rounded-lg dark:bg-[#181110] bg-[#f8f6f3] border dark:border-[#74483F]/35 border-[#74483F]/25 flex flex-col justify-between space-y-2"
+                        className="p-3.5 sm:p-4 rounded-none dark:bg-[#181110] bg-[#f8f6f3] border dark:border-[#74483F]/35 border-[#74483F]/25 flex flex-col justify-between space-y-2"
                       >
                         <div className="space-y-1.5">
-                          <span className="px-2 py-0.5 rounded dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] font-bold inline-block">
+                          <span className="px-2 py-0.5 rounded-none dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] font-bold inline-block">
                             PHASE {phase.phaseNumber}
                           </span>
                           <h6 className="dark:text-white text-[#1c1817] font-bold text-xs">
@@ -396,10 +396,10 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                   {transmission.topologyFlow?.map((step, sIdx) => (
                     <div
                       key={sIdx}
-                      className="p-3.5 sm:p-4 rounded-lg dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.08] border-[#DCDEDD]"
+                      className="p-3.5 sm:p-4 rounded-none dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.08] border-[#DCDEDD]"
                     >
                       <div className="flex items-start gap-3">
-                        <span className="px-2 py-0.5 rounded dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] border dark:border-[#74483F]/35 border-[#74483F]/25 font-bold shrink-0">
+                        <span className="px-2 py-0.5 rounded-none dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] border dark:border-[#74483F]/35 border-[#74483F]/25 font-bold shrink-0">
                           STEP {step.stepNumber}
                         </span>
                         <div className="space-y-1 min-w-0 flex-1">
@@ -425,7 +425,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                     {transmission.designDecisions.map((decision, dIdx) => (
                       <div
                         key={dIdx}
-                        className="p-4 rounded-lg dark:bg-[#150f0e] bg-white border dark:border-white/[0.08] border-[#DCDEDD] space-y-2"
+                        className="p-4 rounded-none dark:bg-[#150f0e] bg-white border dark:border-white/[0.08] border-[#DCDEDD] space-y-2"
                       >
                         <div className="flex items-start gap-2">
                           <span className="font-mono-tech text-xs dark:text-[#c68477] text-[#74483F] font-bold">Q:</span>
@@ -450,7 +450,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 {specSnippet.description}
               </p>
 
-              <div className="relative dark:bg-[#070505] bg-[#f8f6f3] border dark:border-[#74483F]/35 border-[#74483F]/25 rounded-lg overflow-hidden">
+              <div className="relative dark:bg-[#070505] bg-[#f8f6f3] border dark:border-[#74483F]/35 border-[#74483F]/25 rounded-[10px] overflow-hidden">
                 <div className="flex items-center justify-between px-4 py-2.5 border-b dark:border-white/[0.08] border-[#DCDEDD] dark:bg-[#140e0d] bg-[#f0ece7] font-mono-tech text-xs">
                   <div className="flex items-center gap-2">
                     <Terminal className="w-3.5 h-3.5 dark:text-[#c68477] text-[#74483F]" />
@@ -461,7 +461,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
 
                   <button
                     onClick={handleCopySpec}
-                    className="flex items-center gap-1.5 text-[11px] dark:text-[#DCDEDD] text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.06] bg-[#4B4643]/10 hover:bg-[#74483F]/20 px-2.5 py-1 rounded transition-colors cursor-pointer border dark:border-white/[0.06] border-[#DCDEDD]"
+                    className="flex items-center gap-1.5 text-[11px] dark:text-[#DCDEDD] text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.06] bg-[#4B4643]/10 hover:bg-[#74483F]/20 px-2.5 py-1 rounded-none transition-colors cursor-pointer border dark:border-white/[0.06] border-[#DCDEDD]"
                   >
                     {copiedPrompt ? (
                       <>
@@ -486,7 +486,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
 
           {activeTab === 'stack' && (
             <div className="space-y-4 animate-fade-in">
-              <div className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD] p-4 rounded-lg space-y-1">
+              <div className="dark:bg-[#181110] bg-[#f8f6f3] border dark:border-white/[0.06] border-[#DCDEDD] p-4 rounded-[10px] space-y-1">
                 <span className="font-mono-tech text-[10px] uppercase tracking-wider dark:text-[#c68477] text-[#74483F] font-semibold block">
                   TECH STACK &amp; INTEGRATIONS
                 </span>
@@ -499,7 +499,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 {transmission.techStack.map((technology) => (
                   <div
                     key={technology}
-                    className="flex items-center gap-2 font-mono-tech text-xs px-3.5 py-2 rounded-lg dark:bg-[#181110] bg-[#f8f6f3] dark:text-[#DCDEDD] text-[#1c1817] border dark:border-white/[0.08] border-[#DCDEDD]"
+                    className="flex items-center gap-2 font-mono-tech text-xs px-3.5 py-2 rounded-none dark:bg-[#181110] bg-[#f8f6f3] dark:text-[#DCDEDD] text-[#1c1817] border dark:border-white/[0.08] border-[#DCDEDD]"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 dark:text-[#c68477] text-[#74483F] shrink-0" />
                     <span className="font-medium">{technology}</span>
@@ -521,7 +521,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setIsFullscreen(!isFullscreen);
               }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-none text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer"
             >
               {isFullscreen ? (
                 <>
@@ -541,7 +541,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundFx.playClick()}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-tech font-semibold dark:text-white text-[#1c1817] dark:bg-[#251a18] bg-[#f0ece7] hover:bg-[#74483F]/20 dark:hover:bg-[#32221f] border dark:border-[#74483F]/50 border-[#74483F]/35 transition-colors duration-150 shadow-sm cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-none text-xs font-mono-tech font-semibold dark:text-white text-[#1c1817] dark:bg-[#251a18] bg-[#f0ece7] hover:bg-[#74483F]/20 dark:hover:bg-[#32221f] border dark:border-[#74483F]/50 border-[#74483F]/35 transition-colors duration-150 shadow-sm cursor-pointer"
             >
               <Github className="w-4 h-4" />
               <span>VIEW_ON_GITHUB</span>
@@ -553,7 +553,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 onClose();
               }}
-              className="px-4 py-2 rounded-lg text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-none text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer"
             >
               CLOSE
             </button>
