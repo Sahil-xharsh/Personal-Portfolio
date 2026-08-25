@@ -168,7 +168,7 @@ export const SpecularButton: React.FC<SpecularButtonProps> = ({
       ctx.lineWidth = thickness * dpr;
       ctx.strokeStyle = grad;
       ctx.shadowColor = lineColor;
-      ctx.shadowBlur = 6 * dpr;
+      ctx.shadowBlur = Math.min(4 * dpr, 6);
 
       ctx.beginPath();
       const x = PAD * dpr;
@@ -233,7 +233,11 @@ export const SpecularButton: React.FC<SpecularButtonProps> = ({
       }
     };
 
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    const isFinePointer = typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
+
+    if (isFinePointer) {
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+    }
 
     if (autoAnimate) {
       startLoop();
@@ -243,7 +247,9 @@ export const SpecularButton: React.FC<SpecularButtonProps> = ({
       stopLoop();
       ro.disconnect();
       io.disconnect();
-      window.removeEventListener('pointermove', onPointerMove);
+      if (isFinePointer) {
+        window.removeEventListener('pointermove', onPointerMove);
+      }
     };
   }, [radius, lineColor, baseColor, intensity, thickness, speed, followMouse, proximity, autoAnimate]);
 

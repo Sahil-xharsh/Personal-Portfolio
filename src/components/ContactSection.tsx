@@ -106,8 +106,8 @@ export const ContactSection: React.FC = () => {
                   <div className="w-12 h-12 rounded-none dark:bg-emerald-500/20 bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
                     <Check className="w-6 h-6" />
                   </div>
-                  <h4 className="text-lg font-bold dark:text-white text-[#1c1817]">Signal Transmitted</h4>
-                  <p className="text-xs dark:text-[#DCDEDD]/70 text-[#4B4643]">Thanks for reaching out! I&apos;ll be in touch soon.</p>
+                  <h4 className="text-lg font-bold dark:text-white text-[#1c1817]">Message Sent Successfully</h4>
+                  <p className="text-xs dark:text-[#DCDEDD]/70 text-[#4B4643]">Thanks for reaching out! I&apos;ll get back to you soon.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -266,23 +266,12 @@ export const ContactSection: React.FC = () => {
               {PERSONAL_INFO.email}
             </a>
 
-            <SpecularButton
-              radius={999}
-              size="sm"
-              tint={theme === 'dark' ? '#1c1514' : '#f5f2ee'}
-              tintOpacity={0.8}
-              blur={4}
-              textColor={theme === 'dark' ? '#DCDEDD' : '#1c1817'}
-              lineColor={theme === 'dark' ? '#c68477' : '#74483F'}
-              baseColor={theme === 'dark' ? '#382522' : '#e4dfdc'}
-              intensity={1.2}
-              thickness={1}
-              speed={0.35}
-              followMouse={true}
-              proximity={30}
-              autoAnimate={false}
+            <button
+              type="button"
               onClick={handleCopyEmail}
-              className="text-[11px] font-mono-tech px-3 py-1.5 rounded-full border dark:border-white/[0.08] border-[#DCDEDD] cursor-pointer"
+              className="text-[11px] font-mono-tech font-medium px-3 py-1.5 rounded-full dark:bg-white/[0.06] bg-[#4B4643]/10 dark:text-[#DCDEDD] text-[#4B4643] hover:dark:bg-white/[0.12] hover:bg-[#4B4643]/15 dark:hover:text-white hover:text-[#1c1817] border dark:border-white/[0.08] border-[#DCDEDD] transition-colors duration-150 cursor-pointer active:scale-95 select-none shrink-0"
+              title="Copy email to clipboard"
+              aria-label="Copy email address"
             >
               <div className="flex items-center gap-1">
                 {copiedEmail ? (
@@ -293,7 +282,7 @@ export const ContactSection: React.FC = () => {
                   'COPY'
                 )}
               </div>
-            </SpecularButton>
+            </button>
           </div>
         </div>
 

@@ -146,8 +146,24 @@ npm run deploy
 2. Set the project root to the repository root.
 3. Use `npm run build` as the build command.
 4. Use `dist` as the output directory.
-5. Add the required `VITE_*` environment variables in the Vercel project settings.
+5. Add these environment variables in the Vercel project settings for
+   Production, Preview, and Development:
+
+   ```env
+   VITE_SANITY_PROJECT_ID=your-sanity-project-id
+   VITE_SANITY_DATASET=production
+   VITE_CLOUDINARY_CLOUD_NAME=your-cloudinary-cloud-name
+   ```
+
+   Add `VITE_SANITY_READ_TOKEN` only if the dataset is private, and use a
+   read-only token. Do not add Sanity write tokens, Cloudinary API secrets, or
+   other private credentials to any `VITE_*` variable.
 6. Deploy.
+
+After deployment, open the Vercel URL and verify that Sanity projects/posts
+load and that Cloudinary images render. If you use a custom domain, add that
+domain in Vercel and update `APP_URL` only if application code later needs it;
+the current static frontend does not require `APP_URL` at build time.
 
 ### Sanity Studio
 

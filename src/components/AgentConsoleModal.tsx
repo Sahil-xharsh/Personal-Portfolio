@@ -218,7 +218,7 @@ export const AgentConsoleModal: React.FC<AgentConsoleModalProps> = ({ isOpen, on
       } else if (question.includes('stack') || question.includes('skills') || question.includes('tools')) {
         answer = 'Core stack: Python, PyTorch, LangGraph, LangChain, FastAPI, Docker, Streamlit, OpenCV, NumPy, TypeScript, Next.js, React, and TailwindCSS.';
       } else {
-        answer = `Regarding "${question}": Sahil specializes in multimodal AI, model fine-tuning, RAG, agents, inference, evaluation, and MLOps. Feel free to reach out directly at sahilharsh.dev@gmail.com.`;
+        answer = `Regarding "${question}": Sahil specializes in multimodal AI, model fine-tuning, RAG, agents, inference, evaluation, and MLOps. Feel free to reach out directly at sahilharsh27@gmail.com.`;
       }
 
       outputContent = (

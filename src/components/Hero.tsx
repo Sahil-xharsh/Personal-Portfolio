@@ -139,9 +139,9 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
 
       <div className="relative max-w-5xl mx-auto w-full z-10 flex flex-col gap-10 sm:gap-14 my-auto mt-2 sm:mt-6 md:mt-8">
 
-        <div className="flex flex-col lg:flex-row lg:items-stretch justify-between gap-6 sm:gap-8 pt-2 sm:pt-4 text-left">
-          <div className="space-y-4 sm:space-y-5 max-w-3xl flex flex-col justify-between">
-            <div className="inline-flex">
+        <div className="flex flex-col lg:flex-row lg:items-stretch justify-between gap-6 sm:gap-8 pt-2 sm:pt-4 text-center lg:text-left">
+          <div className="space-y-4 sm:space-y-5 max-w-3xl flex flex-col items-center lg:items-start justify-between">
+            <div className="inline-flex justify-center lg:justify-start">
               <div className="inline-flex items-center px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-mono-tech tracking-wider backdrop-blur-md shadow-sm border dark:border-white/[0.12] border-[#DCDEDD] dark:bg-[#140e0d]/75 bg-white/95">
                 <span className="dark:text-white text-[#1c1817] text-sm sm:text-base md:text-[17px] font-bold tracking-wider uppercase select-none">
                   SAHIL HARSH
@@ -149,13 +149,13 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
               </div>
             </div>
 
-            <div className="space-y-2.5 sm:space-y-3">
+            <div className="space-y-2.5 sm:space-y-3 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
               <h1
                 id="hero-main-heading"
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold tracking-[-0.03em] dark:text-white text-[#1c1817] leading-[1.14] flex flex-col items-start text-left"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold tracking-[-0.03em] dark:text-white text-[#1c1817] leading-[1.14] flex flex-col items-center lg:items-start text-center lg:text-left w-full"
               >
                 <span>AI Engineer</span>
-                <span className="relative inline-block h-[1.18em] overflow-hidden text-left w-full">
+                <span className="relative inline-block h-[1.18em] overflow-hidden text-center lg:text-left w-full">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.span
                       key={ROTATING_PHRASES[phraseIndex]}
@@ -173,7 +173,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
 
               <p
                 id="hero-headline-sub"
-                className="text-base sm:text-lg md:text-xl font-light max-w-2xl leading-relaxed tracking-normal text-left pl-0 m-0"
+                className="text-base sm:text-lg md:text-xl font-light max-w-2xl leading-relaxed tracking-normal text-center lg:text-left pl-0 m-0"
               >
                 <ShinyText
                   text="I Learn Before the Problem Exists"

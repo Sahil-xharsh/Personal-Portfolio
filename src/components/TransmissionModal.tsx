@@ -106,7 +106,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
     <div
       id="transmission-modal-backdrop"
       className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 dark:bg-black/90 backdrop-blur-md overflow-hidden select-none transition-all duration-200 ${
-        isFullscreen ? 'p-0 sm:p-2 md:p-3' : 'p-3 sm:p-5 md:p-6'
+        isFullscreen ? 'p-0 sm:p-2 md:p-3' : 'p-2 sm:p-5 md:p-6'
       }`}
       onClick={onClose}
     >
@@ -115,38 +115,38 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
         className={`relative w-full flex flex-col dark:bg-[#120e0d] bg-white border dark:border-white/[0.12] border-[#DCDEDD] shadow-2xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.95)] overflow-hidden text-left transition-all duration-200 rounded-none ${
           isFullscreen
             ? 'h-full w-full max-w-none max-h-none'
-            : 'max-w-3xl h-[86vh] max-h-[780px]'
+            : 'max-w-3xl h-[90vh] sm:h-[86vh] max-h-[780px]'
         }`}
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="shrink-0 p-4 sm:p-6 pb-3 border-b dark:border-white/[0.08] border-[#DCDEDD] dark:bg-[#181110] bg-[#faf8f6]">
-          <div className="flex items-start justify-between gap-4">
+        <div className="shrink-0 p-3.5 sm:p-6 pb-2.5 sm:pb-3 border-b dark:border-white/[0.08] border-[#DCDEDD] dark:bg-[#181110] bg-[#faf8f6]">
+          <div className="flex items-start justify-between gap-3 sm:gap-4">
             <div className="space-y-1 text-left min-w-0 flex-1">
-              <h3 className="text-2xl sm:text-3xl font-bold dark:text-white text-[#1c1817] tracking-tight">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold dark:text-white text-[#1c1817] tracking-tight truncate">
                 {transmission.title}
               </h3>
               {transmission.tagline && (
-                <p className="text-xs sm:text-sm dark:text-[#DCDEDD]/80 text-[#4B4643] font-light leading-snug">
+                <p className="text-xs sm:text-sm dark:text-[#DCDEDD]/80 text-[#4B4643] font-light leading-snug line-clamp-1 sm:line-clamp-2">
                   {transmission.tagline}
                 </p>
               )}
             </div>
 
-            <div className="flex items-center gap-1.5 shrink-0">
+            <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
               <button
                 id="modal-fullscreen-toggle-btn"
                 onClick={() => {
                   soundFx.playClick();
                   setIsFullscreen(!isFullscreen);
                 }}
-                className="p-2 rounded-none dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
+                className="p-1.5 sm:p-2 rounded-none dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
                 title={isFullscreen ? 'Exit Full Screen (ESC)' : 'Open Full Screen'}
                 aria-label={isFullscreen ? 'Exit Full Screen' : 'Open Full Screen'}
               >
                 {isFullscreen ? (
-                  <Minimize2 className="w-4 h-4" />
+                  <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 ) : (
-                  <Maximize2 className="w-4 h-4" />
+                  <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 )}
               </button>
 
@@ -156,7 +156,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                   soundFx.playClick();
                   onClose();
                 }}
-                className="p-2 rounded-none dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
+                className="p-1.5 sm:p-2 rounded-none dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.04] bg-[#4B4643]/5 hover:bg-[#74483F]/15 dark:hover:bg-[#74483F]/25 border dark:border-white/[0.08] border-[#DCDEDD] hover:border-[#74483F]/40 transition-colors duration-150 cursor-pointer"
                 title="Close (ESC)"
                 aria-label="Close modal"
               >
@@ -165,13 +165,13 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 mt-4 pt-1 font-mono-tech text-xs w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 mt-3 sm:mt-4 pt-1 font-mono-tech text-[11px] sm:text-xs w-full">
             <button
               onClick={() => {
                 soundFx.playClick();
                 setActiveTab('overview');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'overview'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -186,7 +186,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setActiveTab('architecture');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'architecture'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -201,7 +201,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setActiveTab('spec');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'spec'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -216,7 +216,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 setActiveTab('stack');
               }}
-              className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none border transition-colors cursor-pointer text-center ${
+              className={`flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-none border transition-colors cursor-pointer text-center ${
                 activeTab === 'stack'
                   ? 'dark:bg-[#74483F]/25 bg-[#74483F]/15 dark:text-[#c68477] text-[#74483F] dark:border-[#c68477]/40 border-[#74483F]/40 font-semibold shadow-sm'
                   : 'dark:text-[#DCDEDD]/70 text-[#4B4643] dark:bg-white/[0.02] bg-[#4B4643]/5 border dark:border-white/[0.06] border-[#DCDEDD] hover:text-[#1c1817] dark:hover:text-white'
@@ -230,7 +230,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
 
         <div
           ref={scrollContainerRef}
-          className="flex-1 min-h-0 overflow-y-auto p-5 sm:p-7 text-left space-y-6 select-text custom-scrollbar"
+          className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 md:p-7 text-left space-y-5 sm:space-y-6 select-text custom-scrollbar touch-scroll"
         >
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-fade-in">
@@ -510,28 +510,28 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
           )}
         </div>
 
-        <div className="shrink-0 p-4 sm:p-5 border-t dark:border-white/[0.08] border-[#DCDEDD] dark:bg-[#181110] bg-[#faf8f6] flex flex-wrap items-center justify-between gap-3">
-          <div className="font-mono-tech text-xs dark:text-[#DCDEDD]/70 text-[#4B4643]">
-            DOMAIN: <span className="dark:text-[#c68477] text-[#74483F] font-semibold">{transmission.primaryDomain}</span>
+        <div className="shrink-0 p-3 sm:p-4 md:p-5 border-t dark:border-white/[0.08] border-[#DCDEDD] dark:bg-[#181110] bg-[#faf8f6] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
+          <div className="font-mono-tech text-[11px] sm:text-xs dark:text-[#DCDEDD]/70 text-[#4B4643] flex items-center justify-between sm:justify-start gap-2">
+            <span>DOMAIN: <strong className="dark:text-[#c68477] text-[#74483F] font-semibold">{transmission.primaryDomain}</strong></span>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="grid grid-cols-3 gap-1.5 sm:flex sm:items-center sm:gap-2.5 w-full sm:w-auto shrink-0">
             <button
               onClick={() => {
                 soundFx.playClick();
                 setIsFullscreen(!isFullscreen);
               }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-none text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer"
+              className="flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-none text-[11px] sm:text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer whitespace-nowrap"
             >
               {isFullscreen ? (
                 <>
-                  <Minimize2 className="w-3.5 h-3.5" />
+                  <Minimize2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   <span>RESTORE</span>
                 </>
               ) : (
                 <>
-                  <Maximize2 className="w-3.5 h-3.5" />
-                  <span>FULL_SCREEN</span>
+                  <Maximize2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span>FULLSCREEN</span>
                 </>
               )}
             </button>
@@ -541,11 +541,12 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundFx.playClick()}
-              className="flex items-center gap-2 px-4 py-2 rounded-none text-xs font-mono-tech font-semibold dark:text-white text-[#1c1817] dark:bg-[#251a18] bg-[#f0ece7] hover:bg-[#74483F]/20 dark:hover:bg-[#32221f] border dark:border-[#74483F]/50 border-[#74483F]/35 transition-colors duration-150 shadow-sm cursor-pointer"
+              className="flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-4 py-1.5 sm:py-2 rounded-none text-[11px] sm:text-xs font-mono-tech font-semibold dark:text-white text-[#1c1817] dark:bg-[#251a18] bg-[#f0ece7] hover:bg-[#74483F]/20 dark:hover:bg-[#32221f] border dark:border-[#74483F]/50 border-[#74483F]/35 transition-colors duration-150 shadow-sm cursor-pointer whitespace-nowrap"
             >
-              <Github className="w-4 h-4" />
-              <span>VIEW_ON_GITHUB</span>
-              <ArrowUpRight className="w-3.5 h-3.5 dark:text-[#c68477] text-[#74483F]" />
+              <Github className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="sm:hidden">GITHUB</span>
+              <span className="hidden sm:inline">VIEW_ON_GITHUB</span>
+              <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 dark:text-[#c68477] text-[#74483F]" />
             </a>
 
             <button
@@ -553,7 +554,7 @@ export const TransmissionModal: React.FC<TransmissionModalProps> = ({
                 soundFx.playClick();
                 onClose();
               }}
-              className="px-4 py-2 rounded-none text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer"
+              className="flex items-center justify-center px-2 sm:px-4 py-1.5 sm:py-2 rounded-none text-[11px] sm:text-xs font-mono-tech dark:text-[#DCDEDD]/80 text-[#4B4643] dark:hover:text-white hover:text-[#1c1817] dark:bg-white/[0.03] bg-[#4B4643]/5 hover:bg-[#4B4643]/10 border dark:border-white/[0.08] border-[#DCDEDD] transition-colors cursor-pointer whitespace-nowrap"
             >
               CLOSE
             </button>

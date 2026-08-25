@@ -53,7 +53,7 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
   }, []);
 
   useAnimationFrame((time) => {
-    if (disabled || isPaused || !isInView || !spanRef.current) {
+    if (disabled || isPaused || !isInView || !spanRef.current || (typeof document !== 'undefined' && document.hidden)) {
       lastTimeRef.current = null;
       return;
     }

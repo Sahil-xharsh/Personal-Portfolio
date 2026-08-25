@@ -7,7 +7,7 @@ export const PERSONAL_INFO = {
   tagline: 'Working with multimodal AI through model fine-tuning, RAG, agents, inference, and evaluation.',
   githubHandle: 'Sahil-xharsh',
   githubUrl: 'https://github.com/Sahil-xharsh',
-  email: 'sahilharsh.dev@gmail.com',
+  email: 'sahilharsh27@gmail.com',
   linkedinUrl: 'https://www.linkedin.com/in/sahil-harsh-598b02288/',
   huggingFaceUrl: 'https://huggingface.co/Sahil-xharsh',
   kaggleUrl: 'https://www.kaggle.com/sahilxharsh',
