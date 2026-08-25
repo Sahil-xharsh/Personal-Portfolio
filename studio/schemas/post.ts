@@ -33,9 +33,8 @@ export const post = defineType({
     defineField({
       name: 'mainImage',
       title: 'Main image URL',
-      type: 'url',
+      type: 'string',
       description: 'Cloudinary delivery URL or public ID. Images are hosted in Cloudinary.',
-      validation: (rule) => rule.uri({ scheme: ['http', 'https'] }),
     }),
     defineField({
       name: 'body',
@@ -69,4 +68,3 @@ export const post = defineType({
     select: { title: 'title', subtitle: 'publishedAt' },
   },
 });
-

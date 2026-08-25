@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TRANSMISSIONS, PERSONAL_INFO } from '../data/portfolioData';
 import { Transmission } from '../types';
+import { loadProjects } from '../lib/content';
 import { TransmissionModal } from './TransmissionModal';
 import { ImageLightboxModal } from './ImageLightboxModal';
 import { BorderGlow } from './BorderGlow/BorderGlow';
@@ -29,11 +30,28 @@ export const TransmissionsSection: React.FC = () => {
   const [lightboxImage, setLightboxImage] = useState<{ src: string; title: string } | null>(null);
   const [selectedGenre, setSelectedGenre] = useState('ALL');
   const [isGenreDropdownOpen, setIsGenreDropdownOpen] = useState(false);
+  const [projects, setProjects] = useState<Transmission[]>(TRANSMISSIONS);
   const isDark = theme === 'dark';
 
-  const featuredTransmission = TRANSMISSIONS.find((transmission) => transmission.id === 'claw-agent') || TRANSMISSIONS[0];
+  useEffect(() => {
+    let isMounted = true;
 
-  const archiveProjects = TRANSMISSIONS.filter((transmission) => transmission.id !== 'claw-agent');
+    loadProjects()
+      .then((nextProjects) => {
+        if (isMounted) setProjects(nextProjects);
+      })
+      .catch(() => {
+        // Local project data remains visible if Sanity is unavailable.
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const featuredTransmission = projects.find((transmission) => transmission.featured) || projects[0];
+
+  const archiveProjects = projects.filter((transmission) => transmission.id !== featuredTransmission?.id);
 
   const filteredArchiveProjects = archiveProjects.filter((project) => {
     if (selectedGenre === 'ALL') return true;
@@ -44,6 +62,8 @@ export const TransmissionsSection: React.FC = () => {
       project.title.toLowerCase().includes(genreLower)
     );
   });
+
+  if (!featuredTransmission) return null;
 
   return (
     <section id="projects" data-section="projects" className="relative py-20 px-4 sm:px-6 z-10 scroll-mt-20">

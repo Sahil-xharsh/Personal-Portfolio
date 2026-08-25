@@ -28,9 +28,8 @@ export const project = defineType({
     defineField({
       name: 'coverImage',
       title: 'Cover image URL',
-      type: 'url',
+      type: 'string',
       description: 'Cloudinary delivery URL or public ID.',
-      validation: (rule) => rule.uri({ scheme: ['http', 'https'] }),
     }),
     defineField({
       name: 'gallery',
@@ -38,8 +37,7 @@ export const project = defineType({
       type: 'array',
       of: [
         defineArrayMember({
-          type: 'url',
-          validation: (rule) => rule.uri({ scheme: ['http', 'https'] }),
+          type: 'string',
         }),
       ],
     }),

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowLeft, PenLine, ArrowRight, Mail, Check, X as CloseIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { soundFx } from '../utils/audioHaptics';
 import { SpecularButton } from './SpecularButton/SpecularButton';
 import { useTheme } from '../context/ThemeContext';
+import type { Post } from '../types/content';
+import { loadPosts, portableTextToPlainText } from '../lib/content';
 
 interface BlogPageProps {
   onNavigateHome: () => void;
@@ -22,6 +24,23 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigateHome, onNavigateSe
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    loadPosts()
+      .then((nextPosts) => {
+        if (isMounted) setPosts(nextPosts);
+      })
+      .catch(() => {
+        // The empty state remains useful while Sanity is being configured.
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleCopyEmail = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -87,15 +106,50 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigateHome, onNavigateSe
 
           <div className="space-y-1.5 max-w-md mx-auto">
             <span className="font-mono-tech text-xs dark:text-[#c68477] text-[#74483F] tracking-[0.2em] uppercase block font-semibold">
-              WRITING IN PROGRESS
+              {posts.length ? 'PUBLISHED NOTES' : 'WRITING IN PROGRESS'}
             </span>
             <h2 className="text-xl sm:text-2xl font-bold dark:text-white text-[#1c1817] tracking-tight">
-              Posts Coming Soon
+              {posts.length ? 'Latest Notes' : 'Posts Coming Soon'}
             </h2>
             <p className="text-xs sm:text-sm dark:text-[#DCDEDD]/75 text-[#4B4643] font-light leading-relaxed">
-              I am currently compiling technical write-ups, practical tips, and insights. New posts will be published directly here.
+              {posts.length
+                ? 'Technical write-ups, practical tips, and engineering notes from my current work.'
+                : 'I am currently compiling technical write-ups, practical tips, and insights. New posts will be published directly here.'}
             </p>
           </div>
+
+          {posts.length > 0 && (
+            <div className="space-y-3 text-left">
+              {posts.map((post) => (
+                <article
+                  key={post._id}
+                  className="rounded-lg border dark:border-white/[0.08] border-[#DCDEDD] dark:bg-white/[0.03] bg-[#faf8f6] p-4"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="font-semibold dark:text-white text-[#1c1817]">{post.title}</h3>
+                    <time className="font-mono-tech text-[10px] dark:text-[#c68477] text-[#74483F]">
+                      {new Date(post.publishedAt).toLocaleDateString()}
+                    </time>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed dark:text-[#DCDEDD]/75 text-[#4B4643]">
+                    {post.excerpt || portableTextToPlainText(post.body).slice(0, 180)}
+                  </p>
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded border dark:border-[#74483F]/30 border-[#DCDEDD] px-2 py-0.5 font-mono-tech text-[10px] dark:text-[#c68477] text-[#74483F]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
 
           <div className="pt-1 flex flex-wrap items-center justify-center gap-3 font-mono-tech text-xs">
             <button
