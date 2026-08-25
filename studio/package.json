@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "sanity start",
+    "dev": "sanity dev",
     "build": "sanity build",
     "deploy": "sanity deploy"
   },

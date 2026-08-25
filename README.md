@@ -48,25 +48,17 @@ copy .env.example .env
 On macOS or Linux, use:
 
 ```bash
-cp .env.example .env
+cp .env.example to .env
 ```
 
 Then fill in the values for Sanity and Cloudinary:
 
 ```env
-VITE_SANITY_PROJECT_ID="your-sanity-project-id"
-VITE_SANITY_DATASET="production"
-VITE_SANITY_API_VERSION="2025-01-01"
-VITE_SANITY_READ_TOKEN="your-read-only-sanity-token"
 VITE_CLOUDINARY_CLOUD_NAME="your-cloudinary-cloud-name"
-```
 
-The template also keeps the existing application variables:
-
-```env
-GEMINI_API_KEY="your-gemini-api-key"
 APP_URL="http://localhost:3000"
 ```
+
 
 For the Studio, copy [`studio/.env.example`](studio/.env.example) to
 `studio/.env`:
@@ -76,9 +68,26 @@ SANITY_STUDIO_PROJECT_ID="your-sanity-project-id"
 SANITY_STUDIO_DATASET="production"
 ```
 
+The Studio must use the real project ID from your Sanity dashboard. Leaving
+the placeholder value will cause a “Project not found” error.
+
 The Sanity project ID and dataset come from the Sanity project dashboard. The
-Cloudinary cloud name comes from the Cloudinary dashboard. The API version is a
-client-side choice and can remain `2025-01-01`.
+Cloudinary cloud name comes from the Cloudinary dashboard.
+
+### Cloudinary setup
+
+1. Create or open a Cloudinary account and copy the **Cloud name** from the
+   Cloudinary dashboard.
+2. Copy `.env.example` to `.env` and replace
+   `VITE_CLOUDINARY_CLOUD_NAME` with that value. Restart the Vite dev server
+   after changing `.env`.
+3. Upload portfolio images in Cloudinary's Media Library. Use the asset's
+   delivery URL or public ID in the corresponding Sanity field (`coverImage`,
+   `gallery`, or `mainImage`).
+
+Only the cloud name is exposed to the browser. Do not add Cloudinary API keys
+or API secrets to `VITE_*` variables; this project uses Cloudinary for image
+delivery, while uploads are performed through the Cloudinary dashboard.
 
 Never expose a Sanity write token through a `VITE_*` variable. If an admin
 panel is added later, keep its write token in a server-side environment
