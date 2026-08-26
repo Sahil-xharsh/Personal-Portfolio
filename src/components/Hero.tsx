@@ -15,8 +15,8 @@ interface HeroProps {
 }
 
 const ROTATING_PHRASES = [
-  'Tuning & Integrating',
-  'Modeling & Pre-training'
+  'Architecting & Fine-Tuning',
+  'Integrating & Deploying'
 ];
 
 const SOCIAL_PROFILES = [
@@ -176,7 +176,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
                 className="text-base sm:text-lg md:text-xl font-light max-w-2xl leading-relaxed tracking-normal text-center lg:text-left pl-0 m-0"
               >
                 <ShinyText
-                  text="I Learn Before the Problem Exists"
+                  text="Learning Before the Problem Arises"
                   disabled={false}
                   speed={7}
                   delay={1.2}

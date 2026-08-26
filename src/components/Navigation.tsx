@@ -127,12 +127,12 @@ export const Navigation: React.FC<NavigationProps> = ({
   return (
     <header
       id="main-navigation"
-      className="fixed top-0 left-0 right-0 z-50 py-3 sm:py-5 pointer-events-none transition-all duration-200"
+      className="fixed top-0 left-0 right-0 z-50 py-2.5 sm:py-5 pointer-events-none transition-all duration-200"
     >
-      <div className="w-full max-w-full flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar touch-scroll px-3 sm:px-4">
+      <div className="w-full max-w-full flex items-center justify-center overflow-x-auto no-scrollbar touch-scroll px-1.5 sm:px-4">
         <nav
           id="desktop-nav-links"
-          className={`pointer-events-auto flex items-center shrink-0 mx-auto gap-0.5 sm:gap-1.5 md:gap-2.5 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-xl transition-all duration-200 ${scrolled
+          className={`pointer-events-auto flex items-center shrink-0 mx-auto gap-0.5 sm:gap-1.5 md:gap-2.5 px-1.5 sm:px-3.5 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full backdrop-blur-xl transition-all duration-200 ${scrolled
               ? 'dark:bg-[#0c0808]/90 bg-white/90 dark:border-white/[0.12] border-[#4B4643]/20 shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_24px_rgba(116,72,63,0.15)]'
               : 'dark:bg-[#0c0808]/75 bg-white/80 dark:border-white/[0.08] border-[#4B4643]/15 shadow-[0_4px_24px_rgba(0,0,0,0.2),0_0_16px_rgba(116,72,63,0.1)]'
             }`}
@@ -146,7 +146,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                   key={navItem.label}
                   id={`nav-link-${navItem.label.toLowerCase()}`}
                   onClick={() => handleSectionClick(navItem.sectionId)}
-                  className={`relative px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-[13px] font-medium transition-colors duration-150 cursor-pointer select-none shrink-0 whitespace-nowrap ${isCurrent
+                  className={`relative px-1.5 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs md:text-[13px] font-medium transition-colors duration-150 cursor-pointer select-none shrink-0 whitespace-nowrap ${isCurrent
                       ? 'dark:text-[#c68477] text-[#74483F] font-semibold'
                       : 'dark:text-[#DCDEDD]/80 text-[#4B4643] hover:text-[#74483F] dark:hover:text-white'
                     }`}
@@ -163,11 +163,11 @@ export const Navigation: React.FC<NavigationProps> = ({
                       }}
                       className="absolute inset-x-0 -bottom-1 pointer-events-none flex flex-col items-center justify-end z-0"
                     >
-                      <div className="absolute bottom-0 w-full h-4 bg-gradient-to-t dark:from-[#c68477]/22 dark:via-[#74483F]/10 from-[#74483F]/15 to-transparent blur-[3px] rounded-t-full pointer-events-none -z-10" />
+                      <div className="absolute bottom-0 w-full h-3.5 sm:h-4 bg-gradient-to-t dark:from-[#c68477]/22 dark:via-[#74483F]/10 from-[#74483F]/15 to-transparent blur-[3px] rounded-t-full pointer-events-none -z-10" />
 
                       <div className="absolute -bottom-[1px] w-3/4 h-[2px] dark:bg-[#e8a598] bg-[#74483F] blur-[1.5px] rounded-full opacity-55" />
 
-                      <div className="relative w-[calc(100%-8px)] sm:w-[calc(100%-16px)] h-[2px] dark:bg-[#e0988a] bg-[#74483F] rounded-full shadow-[0_0_8px_rgba(198,132,119,0.7),0_0_14px_rgba(116,72,63,0.4)]" />
+                      <div className="relative w-[calc(100%-6px)] sm:w-[calc(100%-16px)] h-[2px] dark:bg-[#e0988a] bg-[#74483F] rounded-full shadow-[0_0_8px_rgba(198,132,119,0.7),0_0_14px_rgba(116,72,63,0.4)]" />
                     </motion.div>
                   )}
                 </button>
@@ -175,7 +175,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             })}
           </div>
 
-          <div className="w-[1px] h-3.5 dark:bg-white/[0.12] bg-[#4B4643]/20 mx-0.5 sm:mx-1.5 shrink-0" />
+          <div className="w-[1px] h-3 sm:h-3.5 dark:bg-white/[0.12] bg-[#4B4643]/20 mx-0.5 sm:mx-1 shrink-0" />
 
           <button
             id="nav-link-blog"
@@ -183,13 +183,13 @@ export const Navigation: React.FC<NavigationProps> = ({
               soundFx.playClick();
               handleBlogClick();
             }}
-            className="huly-btn flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-[13px] font-semibold cursor-pointer select-none shadow-md shrink-0 whitespace-nowrap"
+            className="huly-btn flex items-center gap-1 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs md:text-[13px] font-semibold cursor-pointer select-none shadow-md shrink-0 whitespace-nowrap"
             aria-label="Navigate to Blog & Research Logs"
           >
             <span>Blog</span>
           </button>
 
-          <div className="w-[1px] h-3.5 dark:bg-white/[0.12] bg-[#4B4643]/20 mx-0.5 sm:mx-1 shrink-0" />
+          <div className="w-[1px] h-3 sm:h-3.5 dark:bg-white/[0.12] bg-[#4B4643]/20 mx-0.5 sm:mx-1 shrink-0" />
 
           <button
             id="theme-mode-toggle-btn"
