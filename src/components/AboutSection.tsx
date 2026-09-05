@@ -45,18 +45,15 @@ export const AboutSection: React.FC = () => {
         <div className="mb-12 rounded-[10px] dark:bg-[#120e0d] bg-white border dark:border-white/[0.08] border-[#DCDEDD] shadow-sm backdrop-blur-md overflow-hidden">
           <div className="p-6 sm:p-8 space-y-4 dark:text-[#DCDEDD]/90 text-[#1c1817] font-light text-base sm:text-lg leading-relaxed text-left">
             <p>
-              I am <span className="dark:text-white text-[#1c1817] font-medium">Sahil Harsh</span>, an AI/ML Engineer working with multimodal AI through model fine-tuning, Agents, inference and evaluation. My focus is on combining ML research with practical engineering, deployment and MLOps.
+              I am <span className="dark:text-white text-[#1c1817] font-medium">Sahil Harsh</span>, an AI/ML Engineer building depth in the LLM and multimodal space through model fine-tuning, RAG, agents, inference, and evaluation. Basically combining ML research with engineering, deployment and MLOps and I'm continuously sharpening my skills across deep learning and applied AI systems.
             </p>
             <p>
-              Unlike conventional paths into machine learning, my foundation started behind the editing console and component trees. Logging hours &amp; hours in video editing, motion design and frontend development instilled an obsessive discipline for temporal pacing, friction reduction and narrative precision.
-            </p>
-            <p className="dark:text-[#DCDEDD]/70 text-[#4B4643] text-sm sm:text-base">
-              When I fine-tune a model, construct an agent workflow or deploy an inference pipeline today, I do not just evaluate validation loss: I optimize for state predictability, latency, token economics and model behavior in production.
+              Unlike conventional paths into machine learning, my foundation was built behind the editing console and component trees. Years in editing, motion design and frontend development trained me to obsess over timing, smoothness and how small details affect the final experience. The same instincts I now bring to how a model behaves rather than just how it performs on a benchmark.
             </p>
           </div>
         </div>
 
-          <div className="space-y-6 mb-16">
+        <div className="space-y-6 mb-16">
           <div className="flex items-center justify-between">
             <h3 className="font-mono-tech text-xs uppercase tracking-[0.25em] dark:text-[#DCDEDD]/60 text-[#4B4643]/70">
               CAREER JOURNEY &amp; PROGRESSION

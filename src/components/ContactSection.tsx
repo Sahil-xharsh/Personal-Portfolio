@@ -7,6 +7,15 @@ import { soundFx } from '../utils/audioHaptics';
 import { SpecularButton } from './SpecularButton/SpecularButton';
 import { useTheme } from '../context/ThemeContext';
 
+type SubmissionStatus = 'idle' | 'success' | 'error';
+
+class Web3FormsError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'Web3FormsError';
+  }
+}
+
 export const ContactSection: React.FC = () => {
   const { theme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +25,8 @@ export const ContactSection: React.FC = () => {
     contactInfo: '',
     projectDetails: ''
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<SubmissionStatus>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
@@ -39,22 +49,88 @@ export const ContactSection: React.FC = () => {
     setTimeout(() => setCopiedEmail(false), 2500);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const resetForm = () => {
+    setStatus('idle');
+    setStatusMessage('');
+    setIsModalOpen(false);
+    setFormState({ name: '', contactInfo: '', projectDetails: '' });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!formState.name || !formState.contactInfo || !formState.projectDetails) return;
 
+    const formData = new FormData(event.currentTarget);
+    const honeypot = String(formData.get('website') ?? '');
     setIsSubmitting(true);
+    setStatus('idle');
+    setStatusMessage('');
     soundFx.playClick();
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setIsModalOpen(false);
+    try {
+      if (honeypot.trim()) {
+        formData.delete('website');
+        await new Promise((resolve) => setTimeout(resolve, 400));
+        setStatus('success');
+        setStatusMessage('Thanks for reaching out! I\'ll get back to you soon.');
+        event.currentTarget.reset();
         setFormState({ name: '', contactInfo: '', projectDetails: '' });
-      }, 2500);
-    }, 600);
+        setTimeout(resetForm, 2500);
+        return;
+      }
+
+      // This cooldown is easily bypassed by clearing storage; real abuse prevention
+      // should come from Web3Forms captcha or a server-side proxy.
+      const lastSubmit = Number(localStorage.getItem('cf_last_submit') ?? 0);
+      if (lastSubmit && Date.now() - lastSubmit < 30_000) {
+        setStatus('error');
+        setStatusMessage('Please wait a moment before sending another message.');
+        return;
+      }
+
+      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+      if (!accessKey) {
+        throw new Web3FormsError('The contact form is temporarily unavailable.');
+      }
+
+      formData.delete('website');
+      formData.append('access_key', accessKey);
+      formData.append('_subject', 'New portfolio contact form submission');
+      const email = String(formData.get('email') ?? '').trim();
+      if (email) formData.append('_replyto', email);
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      let data: { success?: boolean; message?: string };
+      try {
+        data = await response.json();
+      } catch {
+        throw new Web3FormsError('Non-JSON response from Web3Forms.');
+      }
+
+      if (!response.ok || data.success !== true) {
+        throw new Web3FormsError(data.message || 'Unable to send your message.');
+      }
+
+      localStorage.setItem('cf_last_submit', String(Date.now()));
+      setStatus('success');
+      setStatusMessage('Thanks for reaching out! I\'ll get back to you soon.');
+      event.currentTarget.reset();
+      setFormState({ name: '', contactInfo: '', projectDetails: '' });
+      setTimeout(resetForm, 2500);
+    } catch (error) {
+      setStatus('error');
+      setStatusMessage(
+        error instanceof Web3FormsError
+          ? error.message
+          : 'Network error, please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const modalContent = (
@@ -97,7 +173,7 @@ export const ContactSection: React.FC = () => {
                 </p>
               </div>
 
-              {submitted ? (
+              {status === 'success' ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -107,17 +183,27 @@ export const ContactSection: React.FC = () => {
                     <Check className="w-6 h-6" />
                   </div>
                   <h4 className="text-lg font-bold dark:text-white text-[#1c1817]">Message Sent Successfully</h4>
-                  <p className="text-xs dark:text-[#DCDEDD]/70 text-[#4B4643]">Thanks for reaching out! I&apos;ll get back to you soon.</p>
+                  <p className="text-xs dark:text-[#DCDEDD]/70 text-[#4B4643]">{statusMessage}</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  <input
+                    type="text"
+                    name="website"
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
                   <div>
                     <label className="block text-xs font-mono-tech dark:text-[#DCDEDD]/70 text-[#4B4643] mb-1.5">
                       YOUR NAME
                     </label>
                     <input
                       type="text"
+                      name="name"
                       required
+                      disabled={isSubmitting}
                       value={formState.name}
                       onChange={(event) => setFormState({ ...formState, name: event.target.value })}
                       placeholder="John Doe"
@@ -131,7 +217,9 @@ export const ContactSection: React.FC = () => {
                     </label>
                     <input
                       type="text"
+                      name="email"
                       required
+                      disabled={isSubmitting}
                       value={formState.contactInfo}
                       onChange={(event) => setFormState({ ...formState, contactInfo: event.target.value })}
                       placeholder="john@example.com or @handle"
@@ -145,6 +233,8 @@ export const ContactSection: React.FC = () => {
                     </label>
                     <textarea
                       required
+                      name="message"
+                      disabled={isSubmitting}
                       rows={3}
                       value={formState.projectDetails}
                       onChange={(event) => setFormState({ ...formState, projectDetails: event.target.value })}
@@ -152,6 +242,10 @@ export const ContactSection: React.FC = () => {
                       className="w-full px-4 py-2.5 rounded-none dark:bg-white/[0.04] bg-white border dark:border-white/[0.1] border-[#DCDEDD] dark:text-white text-[#1c1817] text-sm focus:outline-none dark:focus:border-[#c68477] focus:border-[#74483F] transition-colors resize-none"
                     />
                   </div>
+
+                  {status === 'error' && (
+                    <p role="alert" className="text-xs text-red-500 text-center">{statusMessage}</p>
+                  )}
 
                   <div className="flex justify-center pt-2">
                     <button
@@ -248,6 +342,8 @@ export const ContactSection: React.FC = () => {
             onClick={() => {
               soundFx.playClick();
               setIsModalOpen(true);
+              setStatus('idle');
+              setStatusMessage('');
             }}
             className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-semibold border dark:border-white/[0.18] border-[#DCDEDD] hover:dark:border-[#c68477]/80 hover:border-[#74483F]/70 hover:shadow-[0_0_20px_rgba(116,72,63,0.3)] cursor-pointer active:scale-95 transition-all"
           >
