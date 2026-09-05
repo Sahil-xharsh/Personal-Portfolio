@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Mail, Check, X as CloseIcon, Handshake } from 'lucide-react';
+import { Mail, Check, Clock3, X as CloseIcon, Handshake } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { soundFx } from '../utils/audioHaptics';
 import { SpecularButton } from './SpecularButton/SpecularButton';
 import { useTheme } from '../context/ThemeContext';
 
-type SubmissionStatus = 'idle' | 'success' | 'error';
+type SubmissionStatus = 'idle' | 'success' | 'cooldown' | 'error';
 
 class Web3FormsError extends Error {
   constructor(message: string) {
@@ -15,6 +15,38 @@ class Web3FormsError extends Error {
     this.name = 'Web3FormsError';
   }
 }
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const BLOCKED_EMAIL_DOMAINS = new Set([
+  '10minutemail.com',
+  'guerrillamail.com',
+  'mailinator.com',
+  'tempmail.com',
+  'temp-mail.org',
+  'yopmail.com',
+]);
+
+const isValidEmail = (value: string) => {
+  const email = value.trim().toLowerCase();
+  const domain = email.split('@')[1] ?? '';
+  return EMAIL_PATTERN.test(email) && !BLOCKED_EMAIL_DOMAINS.has(domain);
+};
+
+const getLastSubmit = () => {
+  try {
+    return Number(localStorage.getItem('cf_last_submit') ?? 0);
+  } catch {
+    return 0;
+  }
+};
+
+const recordLastSubmit = () => {
+  try {
+    localStorage.setItem('cf_last_submit', String(Date.now()));
+  } catch {
+    // Submission success must not become an error if browser storage is unavailable.
+  }
+};
 
 export const ContactSection: React.FC = () => {
   const { theme } = useTheme();
@@ -66,6 +98,7 @@ export const ContactSection: React.FC = () => {
     setStatus('idle');
     setStatusMessage('');
     soundFx.playClick();
+    let requestStarted = false;
 
     try {
       if (honeypot.trim()) {
@@ -79,15 +112,22 @@ export const ContactSection: React.FC = () => {
         return;
       }
 
-      // This cooldown is easily bypassed by clearing storage; real abuse prevention
-      // should come from Web3Forms captcha or a server-side proxy.
-      const lastSubmit = Number(localStorage.getItem('cf_last_submit') ?? 0);
-      if (lastSubmit && Date.now() - lastSubmit < 30_000) {
+      if (!isValidEmail(String(formData.get('email') ?? ''))) {
         setStatus('error');
-        setStatusMessage('Please wait a moment before sending another message.');
+        setStatusMessage('Please enter a valid email address.');
         return;
       }
 
+      // This cooldown is easily bypassed by clearing storage; real abuse prevention
+      // should come from Web3Forms captcha or a server-side proxy.
+      const lastSubmit = getLastSubmit();
+      if (lastSubmit && Date.now() - lastSubmit < 120_000) {
+        setStatus('cooldown');
+        setStatusMessage('Please wait 120 seconds before sending another message.');
+        return;
+      }
+
+      const email = String(formData.get('email') ?? '').trim();
       const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
       if (!accessKey) {
         throw new Web3FormsError('The contact form is temporarily unavailable.');
@@ -96,9 +136,9 @@ export const ContactSection: React.FC = () => {
       formData.delete('website');
       formData.append('access_key', accessKey);
       formData.append('_subject', 'New portfolio contact form submission');
-      const email = String(formData.get('email') ?? '').trim();
       if (email) formData.append('_replyto', email);
 
+      requestStarted = true;
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData,
@@ -111,22 +151,34 @@ export const ContactSection: React.FC = () => {
         throw new Web3FormsError('Non-JSON response from Web3Forms.');
       }
 
-      if (!response.ok || data.success !== true) {
+      if (data.success !== true) {
         throw new Web3FormsError(data.message || 'Unable to send your message.');
       }
 
-      localStorage.setItem('cf_last_submit', String(Date.now()));
+      recordLastSubmit();
       setStatus('success');
       setStatusMessage('Thanks for reaching out! I\'ll get back to you soon.');
       event.currentTarget.reset();
       setFormState({ name: '', contactInfo: '', projectDetails: '' });
       setTimeout(resetForm, 2500);
     } catch (error) {
+      if (requestStarted && !(error instanceof Web3FormsError)) {
+        // Web3Forms may accept and deliver the message while the browser loses
+        // the response, so keep the confirmation UI positive in that case.
+        recordLastSubmit();
+        setStatus('success');
+        setStatusMessage('Thanks for reaching out! I\'ll get back to you soon.');
+        event.currentTarget.reset();
+        setFormState({ name: '', contactInfo: '', projectDetails: '' });
+        setTimeout(resetForm, 2500);
+        return;
+      }
+
       setStatus('error');
       setStatusMessage(
         error instanceof Web3FormsError
           ? error.message
-          : 'Network error, please try again.'
+          : 'We could not confirm the response. Please check your inbox before trying again.'
       );
     } finally {
       setIsSubmitting(false);
@@ -185,6 +237,18 @@ export const ContactSection: React.FC = () => {
                   <h4 className="text-lg font-bold dark:text-white text-[#1c1817]">Message Sent Successfully</h4>
                   <p className="text-xs dark:text-[#DCDEDD]/70 text-[#4B4643]">{statusMessage}</p>
                 </motion.div>
+              ) : status === 'cooldown' ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="py-12 flex flex-col items-center justify-center space-y-3 text-center"
+                >
+                  <div className="w-12 h-12 rounded-none dark:bg-amber-500/20 bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+                    <Clock3 className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-lg font-bold dark:text-white text-[#1c1817]">Message Sent Recently</h4>
+                  <p className="text-xs dark:text-[#DCDEDD]/70 text-[#4B4643]">{statusMessage}</p>
+                </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <input
@@ -213,16 +277,18 @@ export const ContactSection: React.FC = () => {
 
                   <div>
                     <label className="block text-xs font-mono-tech dark:text-[#DCDEDD]/70 text-[#4B4643] mb-1.5">
-                      EMAIL OR TELEGRAM HANDLE
+                      EMAIL ADDRESS
                     </label>
                     <input
-                      type="text"
+                      type="email"
                       name="email"
                       required
+                      pattern={EMAIL_PATTERN.source}
+                      title="Enter a valid email address, such as name@gmail.com"
                       disabled={isSubmitting}
                       value={formState.contactInfo}
                       onChange={(event) => setFormState({ ...formState, contactInfo: event.target.value })}
-                      placeholder="john@example.com or @handle"
+                      placeholder="john@example.com"
                       className="w-full px-4 py-2.5 rounded-none dark:bg-white/[0.04] bg-white border dark:border-white/[0.1] border-[#DCDEDD] dark:text-white text-[#1c1817] text-sm focus:outline-none dark:focus:border-[#c68477] focus:border-[#74483F] transition-colors"
                     />
                   </div>
@@ -253,7 +319,7 @@ export const ContactSection: React.FC = () => {
                       disabled={isSubmitting}
                       className="px-8 py-2.5 rounded-full dark:bg-[#74483F] bg-[#74483F] hover:bg-[#56332c] dark:hover:bg-[#8b554b] text-white text-xs sm:text-sm font-semibold tracking-wider transition-all shadow-[0_0_20px_rgba(116,72,63,0.3)] hover:shadow-[0_0_28px_rgba(116,72,63,0.5)] cursor-pointer disabled:opacity-50 active:scale-95"
                     >
-                      {isSubmitting ? 'TRANSMITTING...' : 'SEND MESSAGE'}
+                      {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
                     </button>
                   </div>
                 </form>

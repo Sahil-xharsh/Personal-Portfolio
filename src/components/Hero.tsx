@@ -181,8 +181,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
                   speed={7}
                   delay={1.2}
                   className="font-light tracking-normal"
-                  color={theme === 'dark' ? '#8e8e8e' : '#6b6663'}
-                  shineColor={theme === 'dark' ? '#ffffff' : '#74483F'}
+                  color={theme === 'dark' ? '#8e8e8e' : '#736761'}
+                  shineColor={theme === 'dark' ? '#ffffff' : '#c68477'}
                   spread={125}
                   yoyo={true}
                   pauseOnHover={false}
