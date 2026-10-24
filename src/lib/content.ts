@@ -10,40 +10,77 @@ const plainText = (value: string | undefined) => value?.trim() || '';
 const projectToTransmission = (project: Project, index: number): Transmission => {
   const summary = plainText(project.description) || 'Project details are being prepared.';
   const techStack = project.techStack || [];
+  const specSnippet = project.specSnippet;
 
   return {
-    id: project.slug || project._id,
+    id: project.manualOverrideKey || project.slug || project._id,
     transmissionNumber: String(index + 1).padStart(2, '0'),
     title: project.title,
-    accentWord: 'project system',
-    tagline: '',
-    period: 'CURRENT',
-    status: 'ACTIVE',
-    primaryDomain: techStack[0] || 'AI/ML Engineering',
+    accentWord: project.primaryDomain || 'project system',
+    tagline: project.tagline || '',
+    period: project.period || 'CURRENT',
+    status: project.status || 'ACTIVE',
+    primaryDomain: project.primaryDomain || techStack[0] || 'AI/ML Engineering',
     summary,
     previewImage: project.coverImage ? cloudinaryUrl(project.coverImage) : undefined,
-    architectureOverview: summary,
-    topologyFlow: [],
+    originStory: project.originStory,
+    architectureOverview: project.architectureOverview || summary,
+    buildPhases: project.buildPhases?.map((phase) => ({
+      phaseNumber: phase.phaseNumber || '',
+      title: phase.title || 'Build phase',
+      description: phase.description || '',
+    })),
+    topologyFlow: project.topologyFlow?.map((step) => ({
+      stepNumber: step.stepNumber || '',
+      name: step.name || 'Step',
+      description: step.description || '',
+    })) || [],
+    designDecisions: project.designDecisions?.map((decision) => ({
+      question: decision.question || 'Design decision',
+      answer: decision.answer || '',
+    })),
     specSnippet: {
-      tabTitle: 'PROJECT NOTES',
-      fileName: `${project.slug || 'project'}.md`,
-      language: 'text',
-      description: 'Project details managed through Sanity.',
-      codeSnippet: summary,
+      tabTitle: specSnippet?.tabTitle || 'PROJECT NOTES',
+      fileName: specSnippet?.fileName || `${project.slug || 'project'}.md`,
+      language: specSnippet?.language || 'text',
+      description: specSnippet?.description || 'Project details managed through Sanity.',
+      codeSnippet: specSnippet?.codeSnippet || summary,
     },
-    keyInnovations: [],
-    metrics: [
-      {
-        label: 'Managed in',
-        value: 'Sanity',
-        context: 'Published portfolio content',
-      },
-    ],
+    keyInnovations: project.keyInnovations || [],
+    metrics: project.metrics?.map((metric) => ({
+      label: metric.label || 'Metric',
+      value: metric.value || '',
+      context: metric.context || '',
+    })) || [],
+    toonNotes: project.toonNotes,
     techStack,
     githubUrl: project.githubUrl || '#',
     demoUrl: project.liveUrl,
     featured: Boolean(project.featured),
   };
+};
+
+const mergeProjects = (cmsProjects: Project[]): Transmission[] => {
+  const merged = [...TRANSMISSIONS];
+  const manualIndexes = new Map(merged.map((project, index) => [project.id, index]));
+
+  cmsProjects.forEach((project) => {
+    const overrideIndex = project.manualOverrideKey
+      ? manualIndexes.get(project.manualOverrideKey)
+      : undefined;
+
+    if (overrideIndex === undefined) {
+      merged.push(projectToTransmission(project, merged.length));
+      return;
+    }
+
+    merged[overrideIndex] = projectToTransmission(project, overrideIndex);
+  });
+
+  return merged.map((project, index) => ({
+    ...project,
+    transmissionNumber: String(index + 1).padStart(2, '0'),
+  }));
 };
 
 export const loadProjects = async (): Promise<Transmission[]> => {
@@ -52,7 +89,7 @@ export const loadProjects = async (): Promise<Transmission[]> => {
   const projects = await fetchProjects();
   if (!projects.length) return TRANSMISSIONS;
 
-  return projects.map(projectToTransmission);
+  return mergeProjects(projects);
 };
 
 export const loadPosts = async (): Promise<Post[]> => {

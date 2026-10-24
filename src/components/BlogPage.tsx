@@ -7,6 +7,7 @@ import { SpecularButton } from './SpecularButton/SpecularButton';
 import { useTheme } from '../context/ThemeContext';
 import type { Post } from '../types/content';
 import { loadPosts, portableTextToPlainText } from '../lib/content';
+import { PortablePostBody } from './PortablePostBody';
 
 interface BlogPageProps {
   onNavigateHome: () => void;
@@ -25,6 +26,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigateHome, onNavigateSe
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -118,19 +120,28 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigateHome, onNavigateSe
             </p>
           </div>
 
-          {posts.length > 0 && (
+          {posts.length > 0 && !selectedPost && (
             <div className="space-y-3 text-left">
               {posts.map((post) => (
                 <article
                   key={post._id}
-                  className="rounded-lg border dark:border-white/[0.08] border-[#DCDEDD] dark:bg-white/[0.03] bg-[#faf8f6] p-4"
+                  className="rounded-lg border dark:border-white/[0.08] border-[#DCDEDD] dark:bg-white/[0.03] bg-[#faf8f6] p-4 transition-colors hover:border-[#74483F]/50"
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="font-semibold dark:text-white text-[#1c1817]">{post.title}</h3>
-                    <time className="font-mono-tech text-[10px] dark:text-[#c68477] text-[#74483F]">
-                      {new Date(post.publishedAt).toLocaleDateString()}
-                    </time>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundFx.playClick();
+                      setSelectedPost(post);
+                    }}
+                    className="w-full text-left cursor-pointer"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h3 className="font-semibold dark:text-white text-[#1c1817]">{post.title}</h3>
+                      <time className="font-mono-tech text-[10px] dark:text-[#c68477] text-[#74483F]">
+                        {new Date(post.publishedAt).toLocaleDateString()}
+                      </time>
+                    </div>
+                  </button>
                   <p className="mt-2 text-xs leading-relaxed dark:text-[#DCDEDD]/75 text-[#4B4643]">
                     {post.excerpt || portableTextToPlainText(post.body).slice(0, 180)}
                   </p>
@@ -149,6 +160,35 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigateHome, onNavigateSe
                 </article>
               ))}
             </div>
+          )}
+
+          {selectedPost && (
+            <article className="space-y-5 text-left">
+              <button
+                type="button"
+                onClick={() => {
+                  soundFx.playClick();
+                  setSelectedPost(null);
+                }}
+                className="flex items-center gap-2 font-mono-tech text-xs dark:text-[#c68477] text-[#74483F] hover:underline cursor-pointer"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                BACK TO NOTES
+              </button>
+
+              <header className="space-y-2 border-b dark:border-white/[0.08] border-[#DCDEDD] pb-4">
+                <h2 className="text-2xl font-bold dark:text-white text-[#1c1817]">{selectedPost.title}</h2>
+                <div className="flex flex-wrap items-center gap-3 font-mono-tech text-[10px] dark:text-[#c68477] text-[#74483F]">
+                  <time>{new Date(selectedPost.publishedAt).toLocaleDateString()}</time>
+                  {selectedPost.tags?.map((tag) => <span key={tag}>#{tag}</span>)}
+                </div>
+                {selectedPost.excerpt && (
+                  <p className="text-sm leading-relaxed dark:text-[#DCDEDD]/75 text-[#4B4643]">{selectedPost.excerpt}</p>
+                )}
+              </header>
+
+              <PortablePostBody post={selectedPost} />
+            </article>
           )}
 
           <div className="pt-1 flex flex-wrap items-center justify-center gap-3 font-mono-tech text-xs">

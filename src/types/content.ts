@@ -32,9 +32,44 @@ export type Project = {
   _createdAt?: string;
   title: string;
   slug: string;
+  manualOverrideKey?: string;
+  tagline?: string;
+  period?: string;
+  status?: 'ACTIVE' | 'ARCHIVED' | 'TRANSMITTING';
+  primaryDomain?: string;
   description?: string;
   coverImage?: string;
   gallery?: string[];
+  originStory?: string;
+  architectureOverview?: string;
+  buildPhases?: Array<{
+    phaseNumber?: string;
+    title?: string;
+    description?: string;
+  }>;
+  topologyFlow?: Array<{
+    stepNumber?: string;
+    name?: string;
+    description?: string;
+  }>;
+  designDecisions?: Array<{
+    question?: string;
+    answer?: string;
+  }>;
+  specSnippet?: {
+    tabTitle?: string;
+    fileName?: string;
+    language?: string;
+    description?: string;
+    codeSnippet?: string;
+  };
+  keyInnovations?: string[];
+  metrics?: Array<{
+    label?: string;
+    value?: string;
+    context?: string;
+  }>;
+  toonNotes?: string;
   techStack?: string[];
   githubUrl?: string;
   liveUrl?: string;
