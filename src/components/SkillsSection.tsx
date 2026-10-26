@@ -26,6 +26,14 @@ const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'OPENCV', iconKey: 'opencv' },
       { name: 'LANGCHAIN', iconKey: 'langchain' },
       { name: 'LANGGRAPH', iconKey: 'langgraph' },
+      { name: 'HUGGING FACE', iconKey: 'huggingface' },
+      { name: 'NLP' },
+      { name: 'LORA / QLORA' },
+      { name: 'PEFT' },
+      { name: 'LLMS' },
+      { name: 'XGBOOST', iconKey: 'xgboost' },
+      { name: 'UNSLOTH' },
+      { name: 'EVAL' },
     ],
   },
   {
@@ -46,6 +54,7 @@ const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'FASTAPI', iconKey: 'fastapi' },
       { name: 'MYSQL', iconKey: 'mysql' },
       { name: 'UV', iconKey: 'uv' },
+      { name: 'PYDANTIC', iconKey: 'pydantic' },
     ],
   },
   {
@@ -110,7 +119,7 @@ export const SkillsSection: React.FC = () => {
       <div className="max-w-5xl mx-auto text-left space-y-8">
         <div className="flex items-center gap-4 mb-8">
           <span className="font-mono-tech text-xs dark:text-[#c68477] text-[#74483F] tracking-[0.25em] uppercase font-semibold">
-            3  SKILLS
+            SKILLS
           </span>
           <div className="h-[1px] flex-1 bg-gradient-to-r dark:from-[#74483F]/40 from-[#74483F]/30 dark:via-white/[0.1] via-[#DCDEDD] to-transparent" />
         </div>

@@ -71,7 +71,7 @@ export const TransmissionsSection: React.FC = () => {
         <div>
           <div className="flex items-center mb-6">
             <span className="font-mono-tech text-xs tracking-[0.25em] uppercase dark:text-[#c68477] text-[#74483F] font-semibold">
-              2 FEATURED PROJECT
+              FEATURED PROJECT
             </span>
             <div className="h-[1px] flex-1 bg-gradient-to-r dark:from-[#74483F]/40 from-[#74483F]/30 to-transparent ml-6" />
           </div>

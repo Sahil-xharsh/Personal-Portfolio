@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { RouterProvider, useRouter } from './context/RouterContext';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
@@ -12,41 +13,21 @@ import { ResumeModal } from './components/ResumeModal';
 import { AgentConsoleModal } from './components/AgentConsoleModal';
 
 function AppContent() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'blog'>('home');
+  const { route, navigate, navigateToSection } = useRouter();
+  const currentPage = route.type === 'home' ? 'home' : 'blog';
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isConsoleOpen, setIsConsoleOpen] = useState(false);
 
   const handleNavigatePage = (page: 'home' | 'blog', sectionId?: string) => {
-    const isAlreadyOnHome = currentPage === 'home';
-    setCurrentPage(page);
-
     if (page === 'home') {
-      const doScroll = () => {
-        if (sectionId) {
-          const targetSection = document.getElementById(sectionId);
-          if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-          } else if (sectionId === 'hero' || sectionId === 'home') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      };
-
-      if (isAlreadyOnHome) {
-        doScroll();
-      } else {
-        setTimeout(doScroll, 50);
-      }
+      navigateToSection(sectionId || 'hero');
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      navigate('/blog');
     }
   };
 
   const handleExploreWork = () => {
-    const projectSection = document.getElementById('projects') || document.getElementById('transmissions');
-    projectSection?.scrollIntoView({ behavior: 'smooth' });
+    navigateToSection('projects');
   };
 
   return (
@@ -73,8 +54,8 @@ function AppContent() {
           </>
         ) : (
           <BlogPage
-            onNavigateHome={() => handleNavigatePage('home')}
-            onNavigateSection={(sec) => handleNavigatePage('home', sec)}
+            onNavigateHome={() => navigateToSection('hero')}
+            onNavigateSection={(sec) => navigateToSection(sec)}
           />
         )}
       </main>
@@ -95,7 +76,9 @@ function AppContent() {
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <RouterProvider>
+        <AppContent />
+      </RouterProvider>
     </ThemeProvider>
   );
 }

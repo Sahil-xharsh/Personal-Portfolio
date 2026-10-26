@@ -476,3 +476,59 @@ html {
   --sidebar-border: rgba(220, 222, 221, 0.12);
   --sidebar-ring: #c68477;
 }
+
+/* KaTeX math display and formula formatting */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.75rem 0.5rem;
+  margin: 1.25rem 0 !important;
+  max-width: 100%;
+  scrollbar-width: thin;
+}
+
+.katex {
+  font-size: 1.05em;
+  text-rendering: auto;
+}
+
+/* Syntax Highlighting matching the portfolio's aesthetic */
+.hljs {
+  color: #f3edea;
+  background: transparent;
+}
+.hljs-keyword,
+.hljs-operator,
+.hljs-punctuation {
+  color: #e0988a;
+  font-weight: 600;
+}
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_ {
+  color: #e8c4b8;
+  font-weight: 600;
+}
+.hljs-string,
+.hljs-regexp {
+  color: #c9b197;
+}
+.hljs-number,
+.hljs-literal {
+  color: #e8a598;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #8c827d;
+  font-style: italic;
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-variable {
+  color: #d1aba0;
+}
+.hljs-built_in,
+.hljs-type {
+  color: #deb3a7;
+}
+

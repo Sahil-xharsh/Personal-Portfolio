@@ -29,7 +29,7 @@ export const AboutSection: React.FC = () => {
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="flex items-center gap-4 mb-8">
           <span className="font-mono-tech text-xs dark:text-[#c68477] text-[#74483F] tracking-[0.25em] uppercase font-semibold">
-            1 ABOUT &amp; BACKGROUND
+            ABOUT &amp; BACKGROUND
           </span>
           <div className="h-[1px] flex-1 bg-gradient-to-r dark:from-[#74483F]/40 from-[#74483F]/30 dark:via-white/[0.1] via-[#DCDEDD] to-transparent" />
         </div>
@@ -45,13 +45,14 @@ export const AboutSection: React.FC = () => {
         <div className="mb-12 rounded-[10px] dark:bg-[#120e0d] bg-white border dark:border-white/[0.08] border-[#DCDEDD] shadow-sm backdrop-blur-md overflow-hidden">
           <div className="p-6 sm:p-8 space-y-4 dark:text-[#DCDEDD]/90 text-[#1c1817] font-light text-base sm:text-lg leading-relaxed text-left">
             <p>
-              I am <span className="dark:text-white text-[#1c1817] font-medium">Sahil Harsh</span>, an AI/ML Engineer building depth in the LLM and multimodal space through model fine-tuning, RAG, agents, inference, and evaluation. Basically combining ML research with engineering, deployment and MLOps and I'm continuously sharpening my skills across deep learning and applied AI systems.
-            </p>
-            <p>
-              Unlike conventional paths into machine learning, my foundation was built behind the editing console and component trees. Years in editing, motion design and frontend development trained me to obsess over timing, smoothness and how small details affect the final experience. The same instincts I now bring to how a model behaves rather than just how it performs on a benchmark.
-            </p>
-          </div>
-        </div>
+              Hi I'm <span className="dark:text-white text-[#1c1817] font-medium">𝗦𝗮𝗵𝗶𝗹 Harsh</span>,  An 𝗔𝗜/𝗠𝗟 𝗘𝗻𝗴𝗶𝗻𝗲𝗲𝗿 building depth in the 𝗟𝗟𝗠 and 𝗠𝘂𝗹𝘁𝗶𝗺𝗼𝗱𝗮𝗹 𝘀𝗽𝗮𝗰𝗲 through model fine-tuning, RAG, agents, inference and evaluation. Bridging the gap between ML research and production by combining engineering, deployment and MLOps.
+              And I'm continuously sharpening my skills across deep learning and machine learning.
+              </p>
+              <p>
+              What I’ve been working around is Building and maintaining LLM-based applications, fine-tuning and adapting models using LoRA and PEFT-style methods. Covering the full lifecycle around them: deployment, governance, security and evaluation. On the classical ML side, working with XGBoost and tabular modeling. Across all of it the focus is on models that don’t just work in a demo but actually ship.
+              </p>
+              </div>
+            </div>
 
         <div className="space-y-6 mb-16">
           <div className="flex items-center justify-between">

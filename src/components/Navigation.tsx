@@ -127,14 +127,14 @@ export const Navigation: React.FC<NavigationProps> = ({
   return (
     <header
       id="main-navigation"
-      className="fixed top-0 left-0 right-0 z-50 py-2.5 sm:py-5 pointer-events-none transition-all duration-200"
+      className="fixed top-0 left-0 right-0 z-50 py-3 sm:py-4 md:py-5 pointer-events-none transition-all duration-200"
     >
-      <div className="w-full max-w-full flex items-center justify-center overflow-x-auto no-scrollbar touch-scroll px-1.5 sm:px-4">
+      <div className="w-full max-w-full flex items-center justify-center overflow-x-auto no-scrollbar touch-scroll px-2 sm:px-4">
         <nav
           id="desktop-nav-links"
-          className={`pointer-events-auto flex items-center shrink-0 mx-auto gap-0.5 sm:gap-1.5 md:gap-2.5 px-1.5 sm:px-3.5 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full backdrop-blur-xl transition-all duration-200 ${scrolled
-              ? 'dark:bg-[#0c0808]/90 bg-white/90 dark:border-white/[0.12] border-[#4B4643]/20 shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_24px_rgba(116,72,63,0.15)]'
-              : 'dark:bg-[#0c0808]/75 bg-white/80 dark:border-white/[0.08] border-[#4B4643]/15 shadow-[0_4px_24px_rgba(0,0,0,0.2),0_0_16px_rgba(116,72,63,0.1)]'
+          className={`pointer-events-auto flex items-center shrink-0 mx-auto gap-1 sm:gap-1.5 md:gap-2.5 px-2 sm:px-3.5 md:px-4 py-1.5 sm:py-1.5 md:py-2 rounded-full backdrop-blur-xl transition-all duration-200 ${scrolled
+              ? 'dark:bg-[#0c0808]/90 bg-white/90 dark:border-white/[0.12] border-[#4B4643]/20 shadow-[0_8px_24px_rgba(116,72,63,0.16)]'
+              : 'dark:bg-[#0c0808]/75 bg-white/80 dark:border-white/[0.08] border-[#4B4643]/15 shadow-[0_4px_18px_rgba(116,72,63,0.1)]'
             }`}
         >
           <div className="flex items-center gap-0.5 sm:gap-1 md:gap-1.5">
@@ -146,7 +146,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                   key={navItem.label}
                   id={`nav-link-${navItem.label.toLowerCase()}`}
                   onClick={() => handleSectionClick(navItem.sectionId)}
-                  className={`relative px-1.5 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs md:text-[13px] font-medium transition-colors duration-150 cursor-pointer select-none shrink-0 whitespace-nowrap ${isCurrent
+                  className={`relative px-2 sm:px-2.5 md:px-3 py-1.5 sm:py-1.5 rounded-full text-xs sm:text-sm md:text-[13px] font-medium transition-colors duration-150 cursor-pointer select-none shrink-0 whitespace-nowrap ${isCurrent
                       ? 'dark:text-[#c68477] text-[#74483F] font-semibold'
                       : 'dark:text-[#DCDEDD]/80 text-[#4B4643] hover:text-[#74483F] dark:hover:text-white'
                     }`}
@@ -183,7 +183,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               soundFx.playClick();
               handleBlogClick();
             }}
-            className="huly-btn flex items-center gap-1 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs md:text-[13px] font-semibold cursor-pointer select-none shadow-md shrink-0 whitespace-nowrap"
+            className="huly-btn flex items-center gap-1 px-3 sm:px-3.5 py-1.5 sm:py-1.5 text-xs sm:text-sm md:text-[13px] font-semibold cursor-pointer select-none shadow-md shrink-0 whitespace-nowrap"
             aria-label="Navigate to Blog & Research Logs"
           >
             <span>Blog</span>

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { soundFx } from '../utils/audioHaptics';
 import { ShinyText } from './ShinyText/ShinyText';
+import { TechText } from './TechText/TechText';
 import { useTheme } from '../context/ThemeContext';
 
 interface HeroProps {
@@ -139,20 +140,37 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onOpenConsole }) => {
 
       <div className="relative max-w-5xl mx-auto w-full z-10 flex flex-col gap-10 sm:gap-14 my-auto mt-2 sm:mt-6 md:mt-8">
 
-        <div className="flex flex-col lg:flex-row lg:items-stretch justify-between gap-6 sm:gap-8 pt-2 sm:pt-4 text-center lg:text-left">
-          <div className="space-y-4 sm:space-y-5 max-w-3xl flex flex-col items-center lg:items-start justify-between">
-            <div className="inline-flex justify-center lg:justify-start">
-              <div className="inline-flex items-center px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-mono-tech tracking-wider backdrop-blur-md shadow-sm border dark:border-white/[0.12] border-[#DCDEDD] dark:bg-[#140e0d]/75 bg-white/95">
-                <span className="dark:text-white text-[#1c1817] text-sm sm:text-base md:text-[17px] font-bold tracking-wider uppercase select-none">
-                  SAHIL HARSH
-                </span>
-              </div>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 sm:gap-8 pt-2 sm:pt-4 text-center lg:text-left">
+          <div className="space-y-4 sm:space-y-4.5 max-w-3xl flex flex-col items-center lg:items-start justify-start pt-1">
+            <div className="w-full max-w-[310px] sm:max-w-[350px] md:max-w-[380px] h-[52px] sm:h-[58px] relative flex items-center justify-center lg:justify-start">
+              <TechText
+                text="SAHIL HARSH"
+                fontWeight={700}
+                fontSize={42}
+                letterSpacing={0.06}
+                align="left"
+                color={theme === 'dark' ? '#f5f5f5' : '#1c1817'}
+                accentColor={theme === 'dark' ? '#c68477' : '#74483F'}
+                reveal="letter"
+                dashLength={4}
+                dashGap={2}
+                specks={14}
+                selection={true}
+                labels={true}
+                draggable={true}
+                bounce={0.4}
+                clickKick={true}
+                guides={false}
+                sweep={true}
+                speed={0.8}
+                intro="none"
+              />
             </div>
 
-            <div className="space-y-2.5 sm:space-y-3 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
+            <div className="space-y-2 sm:space-y-2.5 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
               <h1
                 id="hero-main-heading"
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold tracking-[-0.03em] dark:text-white text-[#1c1817] leading-[1.14] flex flex-col items-center lg:items-start text-center lg:text-left w-full"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-extrabold tracking-[-0.03em] dark:text-white text-[#1c1817] leading-[1.16] flex flex-col items-center lg:items-start text-center lg:text-left w-full"
               >
                 <span>AI Engineer</span>
                 <span className="relative inline-block h-[1.18em] overflow-hidden text-center lg:text-left w-full">

@@ -61,6 +61,57 @@ export const getSkillIcon = (name: string): React.ReactNode => {
         </svg>
       );
 
+    case 'huggingface':
+      return (
+        <svg className="w-4 h-4 text-[#FFD21E]" viewBox="0 0 24 24" fill="currentColor" aria-label="Hugging Face">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm-4 8.2a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6Zm8 0a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6ZM7.1 16h9.8c-.74 1.6-2.42 2.65-4.9 2.65S7.84 17.6 7.1 16Z" />
+        </svg>
+      );
+    case 'nlp':
+      return (
+        <svg className="w-4 h-4 text-[#8B5CF6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-label="Natural Language Processing">
+          <path d="M5 5h14v10H9l-4 4V5Z" />
+          <path d="M8 9h8M8 12h5" />
+        </svg>
+      );
+    case 'loraqlora':
+      return (
+        <svg className="w-4 h-4 text-[#F59E0B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-label="LoRA and QLoRA">
+          <path d="M6 4v16M6 12h5a3 3 0 0 0 0-6H6M11 12l6 8M15 4h3" />
+        </svg>
+      );
+    case 'peft':
+      return (
+        <svg className="w-4 h-4 text-[#06B6D4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-label="PEFT">
+          <circle cx="6" cy="6" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="12" cy="18" r="2.5" />
+          <path d="M8.2 7.3 10.4 16M15.8 7.3 13.6 16M8.5 6h7" />
+        </svg>
+      );
+    case 'llms':
+      return (
+        <svg className="w-4 h-4 text-[#EC4899]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-label="Large Language Models">
+          <rect x="4" y="4" width="16" height="16" rx="3" /><path d="M8 9h8M8 12h8M8 15h5" />
+        </svg>
+      );
+    case 'xgboost':
+      return (
+        <svg className="w-4 h-4 text-[#22C55E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-label="XGBoost">
+          <path d="M5 19 9 5l3 7 3-7 4 14" /><path d="M4 19h16" />
+        </svg>
+      );
+    case 'unsloth':
+      return (
+        <svg className="w-4 h-4 text-[#F97316]" viewBox="0 0 24 24" fill="currentColor" aria-label="Unsloth">
+          <path d="M12 2a7 7 0 0 0-6.7 9H3v2h2.3A7 7 0 0 0 12 20a7 7 0 0 0 6.7-7H21v-2h-2.3A7 7 0 0 0 12 2Zm0 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" />
+        </svg>
+      );
+    case 'eval':
+      return (
+        <svg className="w-4 h-4 text-[#14B8A6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-label="Evaluation">
+          <path d="m5 13 4 4L19 7" /><path d="M5 5h4M5 9h3M15 19h4" />
+        </svg>
+      );
+
     case 'docker':
       return (
         <svg className="w-4 h-4 text-[#2496ED]" viewBox="0 0 24 24" fill="currentColor">
@@ -113,6 +164,12 @@ export const getSkillIcon = (name: string): React.ReactNode => {
       return (
         <svg className="w-4 h-4 text-[#DE5FE9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
           <path d="M6 4v8a6 6 0 0 0 12 0V4" />
+        </svg>
+      );
+    case 'pydantic':
+      return (
+        <svg className="w-4 h-4 text-[#E92063]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-label="Pydantic">
+          <path d="m12 3 7 4v10l-7 4-7-4V7l7-4Z" /><path d="m8 9 4-2 4 2-4 2-4-2Zm0 4 4 2 4-2M12 11v4" />
         </svg>
       );
 
